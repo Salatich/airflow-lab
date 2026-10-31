@@ -4,6 +4,7 @@ from __future__ import annotations
 
 import json
 import subprocess
+import sys
 from typing import Optional
 
 import requests
@@ -11,6 +12,12 @@ import typer
 from rich.console import Console
 from rich.panel import Panel
 from rich.table import Table
+
+if sys.platform == "win32":
+    try:
+        sys.stdout.reconfigure(encoding="utf-8")
+    except Exception:
+        pass
 
 from airflow_sandbox.config import settings
 

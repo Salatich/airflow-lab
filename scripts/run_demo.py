@@ -10,6 +10,12 @@ from rich.console import Console
 from rich.panel import Panel
 from rich.table import Table
 
+if sys.platform == "win32":
+    try:
+        sys.stdout.reconfigure(encoding="utf-8")
+    except Exception:
+        pass
+
 console = Console()
 
 AIRFLOW_URL = os.getenv("AIRFLOW_BASE_URL", "http://localhost:8080")

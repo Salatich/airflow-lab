@@ -1,0 +1,47 @@
+[project]
+name = "airflow-production-sandbox"
+version = "0.1.0"
+description = "Production-Grade Apache Airflow 2.10+ Sandbox: Modern TaskFlow API, Dynamic Mapping, Reschedule Sensors, Triggerer Deferrals, Resilient Backoff, and MinIO/S3 Custom XCom Backend"
+readme = "README.md"
+requires-python = ">=3.13"
+dependencies = [
+    "apache-airflow>=2.10.0,<3.0.0",
+    "apache-airflow-providers-amazon>=8.0.0",
+    "apache-airflow-providers-postgres>=5.0.0",
+    "boto3>=1.35.0",
+    "psycopg2-binary>=2.9.9",
+    "pydantic>=2.10.0",
+    "pydantic-settings>=2.6.0",
+    "python-dotenv>=1.0.0",
+    "requests>=2.32.0",
+    "rich>=13.9.0",
+    "typer>=0.12.0",
+]
+
+[project.scripts]
+airflow-lab = "airflow_sandbox.cli:app"
+
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/airflow_sandbox"]
+
+[dependency-groups]
+dev = [
+    "pytest>=8.3.0",
+    "ruff>=0.8.0",
+]
+
+[tool.ruff]
+line-length = 100
+target-version = "py313"
+
+[tool.ruff.lint]
+select = ["E", "F", "I", "W"]
+ignore = ["E501"]
+
+[tool.pytest.ini_options]
+pythonpath = ["src", "plugins"]
+testpaths = ["tests"]
